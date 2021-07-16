@@ -2,7 +2,7 @@ FROM php:8-fpm-alpine3.14
 
 LABEL Maintainer="Pande Putu Widya Oktapratama"
 
-RUN apk add --no-cache nginx supervisor curl tzdata bash shadow freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev icu-dev \
+RUN apk add --no-cache nginx supervisor curl tzdata bash shadow freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev icu-dev git\
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php \
     && mv composer.phar /usr/local/bin/composer \
