@@ -1,0 +1,6 @@
+version: "3"
+services: 
+    test:
+        image: pandeptwidyaop/laravel:php8-alpine3.14-v0.1
+        volumes: 
+            - ./test:/var/www/html
