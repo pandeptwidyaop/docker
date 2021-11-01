@@ -3,12 +3,12 @@ FROM php:8-fpm-alpine3.14
 
 LABEL Maintainer="Pande Putu Widya Oktapratama"
 
-RUN apk add --no-cache nginx supervisor curl tzdata bash shadow freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev icu-dev git\
+RUN apk add --no-cache nginx supervisor curl tzdata bash shadow freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev icu-dev git libzip-dev\
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php \
     && mv composer.phar /usr/local/bin/composer \
     && rm /etc/nginx/http.d/default.conf \
-    && touch /etc/crontab && apk add --no-cache  tzdata shadow freetype libpng libjpeg-turbo \
+    && touch /etc/crontab && apk add --no-cache tzdata shadow freetype libpng libjpeg-turbo \
     freetype-dev libpng-dev libjpeg-turbo-dev icu-dev \
     g++ libx11 libxrender libxext libssl1.1 ca-certificates \
     fontconfig freetype \
@@ -27,7 +27,7 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
     && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
     && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-RUN docker-php-ext-install pdo pdo_mysql sockets gd intl
+RUN docker-php-ext-install pdo pdo_mysql sockets gd intl zip
 
 COPY ./src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./src/nginx.conf /etc/nginx/nginx.conf
@@ -38,4 +38,4 @@ COPY --from=wkhtmltopdf /bin/libwkhtmltox* /usr/local/bin/
 
 EXPOSE 8000
 
-CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD [ "/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf" ]

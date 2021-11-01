@@ -1,5 +1,5 @@
 #!/bin/sh
-VERSION=v0.1
+VERSION=v0.2
 docker build \
     -t pandeptwidyaop/laravel:php8-alpine3.14-office2-${VERSION} \
     -t pandeptwidyaop/laravel:php8-alpine3.14-office2 \
