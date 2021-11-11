@@ -1,4 +1,4 @@
-FROM surnet/alpine-wkhtmltopdf:3.13.5-0.12.6-full as wkhtmltopdf
+FROM surnet/alpine-wkhtmltopdf:3.10-0.12.5-full as wkhtmltopdf
 FROM php:8-fpm-alpine3.14
 
 LABEL Maintainer="Pande Putu Widya Oktapratama"
@@ -28,7 +28,7 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
     && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 RUN docker-php-ext-install pdo pdo_mysql sockets gd intl zip
-
+COPY ./src/php.ini /usr/local/etc/php/
 COPY ./src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./src/nginx.conf /etc/nginx/nginx.conf
 COPY ./src/vhost.conf /etc/nginx/http.d/default.conf
