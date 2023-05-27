@@ -28,7 +28,7 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
     && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
 RUN docker-php-ext-install pdo pdo_mysql sockets gd intl zip
-COPY ./src/php.ini /usr/local/etc/php/
+COPY ./src/php.ini /usr/local/etc/php/custom.ini
 COPY ./src/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./src/nginx.conf /etc/nginx/nginx.conf
 COPY ./src/vhost.conf /etc/nginx/http.d/default.conf
